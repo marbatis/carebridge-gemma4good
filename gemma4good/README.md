@@ -12,8 +12,7 @@
 Official competition page:
 - https://www.kaggle.com/competitions/gemma-4-good-hackathon
 
-The notebook payload confirms there is no dataset:
-- `/Users/marcelosilveira/iCloud Drive (Archive)/Documents/Playground/tmp/gemma4good/unzipped/NOTE.md`
+The notebook payload confirms there is no dataset in the competition package.
 
 ## What Matters Here
 
@@ -109,8 +108,8 @@ Secondary technical angle, depending on implementation:
 
 ## Local Prototype
 
-The first working demo app now lives here:
-- `/Users/marcelosilveira/iCloud Drive (Archive)/Documents/Playground/gemma4good/carebridge_app`
+The first working demo app lives in:
+- `gemma4good/carebridge_app`
 
 Run it locally from the workspace root with:
 
