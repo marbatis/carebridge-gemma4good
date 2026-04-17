@@ -1,0 +1,1 @@
+"""CareBridge prototype application."""

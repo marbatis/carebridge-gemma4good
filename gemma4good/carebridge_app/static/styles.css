@@ -1,0 +1,262 @@
+:root {
+  --bg: #f6f0e8;
+  --ink: #14221f;
+  --muted: #4c625c;
+  --card: rgba(255, 253, 248, 0.92);
+  --line: rgba(20, 34, 31, 0.12);
+  --teal: #0f766e;
+  --amber: #a16207;
+  --red: #b42318;
+  --rose: #a53f57;
+  --shadow: 0 24px 60px rgba(20, 34, 31, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.15), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(161, 98, 7, 0.12), transparent 24%),
+    linear-gradient(180deg, #faf6f0 0%, var(--bg) 100%);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.page-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.hero {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Iowan Old Style", "Palatino Linotype", serif;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 0.95;
+}
+
+h4 {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.lede {
+  max-width: 860px;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.hero-grid,
+.workspace,
+.result-grid,
+.field-row,
+.field-row-three,
+.narrative-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-grid {
+  grid-template-columns: 1fr 1fr 0.9fr;
+  margin-top: 24px;
+}
+
+.workspace {
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: start;
+}
+
+.narrative-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.result-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.field-row {
+  grid-template-columns: 1fr 1fr;
+}
+
+.field-row-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hero-card,
+.intake-panel,
+.output-panel,
+.result-card,
+.sources-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.hero-card,
+.output-panel,
+.sources-card,
+.result-card {
+  padding: 22px;
+}
+
+.runtime-card pre {
+  max-height: 260px;
+  overflow: auto;
+  margin: 0;
+  font-size: 0.82rem;
+  color: #103b36;
+}
+
+.intake-panel {
+  padding: 26px;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px;
+}
+
+label span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+textarea,
+input,
+select {
+  width: 100%;
+  border: 1px solid rgba(20, 34, 31, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 14px 16px;
+  color: var(--ink);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+select {
+  appearance: none;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #0f766e, #155e75);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.summary,
+.placeholder,
+.disclaimer,
+.sources-card p,
+.hero-card p,
+.result-card p {
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.assessment-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pill,
+.focus-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.focus-chip {
+  background: rgba(165, 63, 87, 0.12);
+  color: var(--rose);
+}
+
+.handoff-risk {
+  margin-bottom: 8px;
+}
+
+.pill-emergency {
+  background: rgba(180, 35, 24, 0.12);
+  color: var(--red);
+}
+
+.pill-urgent {
+  background: rgba(161, 98, 7, 0.14);
+  color: var(--amber);
+}
+
+.pill-routine {
+  background: rgba(15, 118, 110, 0.14);
+  color: var(--teal);
+}
+
+ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+li + li {
+  margin-top: 8px;
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .workspace,
+  .result-grid,
+  .field-row,
+  .field-row-three,
+  .narrative-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    padding: 28px 16px 48px;
+  }
+}

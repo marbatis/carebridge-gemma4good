@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CareBridge</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <p class="eyebrow">Gemma 4 Good Prototype</p>
+        <h1>CareBridge</h1>
+        <p class="lede">
+          A maternal-and-family resilience assistant for the United States: grounded guidance for
+          postpartum danger signs, child fever and dehydration, and heat or smoke-driven breathing
+          risk when clinics are far, internet is weak, or a caregiver has to decide fast.
+        </p>
+        <div class="hero-grid">
+          <div class="hero-card">
+            <h2>U.S. Relevance</h2>
+            <p>
+              The product is built around what is straining American families now: maternal care
+              deserts, pediatric access gaps, wildfire smoke, heat stress, aging caregivers, and
+              households that need bilingual, plain-language escalation guidance.
+            </p>
+          </div>
+          <div class="hero-card">
+            <h2>Future Generations</h2>
+            <p>
+              The long-term value is not another generic chatbot. It is a household resilience layer:
+              a tool that helps families notice red flags sooner, document what matters, and hand off
+              clean context to clinicians before delays become harm.
+            </p>
+          </div>
+          <div class="hero-card runtime-card">
+            <h2>Runtime</h2>
+            <pre>{{ runtime_report }}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form method="post" class="intake-panel">
+          <h2>Assess a caregiver scenario</h2>
+          <label>
+            <span>What is happening?</span>
+            <textarea
+              name="question"
+              rows="7"
+              placeholder="Example: My wife gave birth 10 days ago and now has a severe headache, chest pain, and swelling."
+            >{{ request_payload.question }}</textarea>
+          </label>
+
+          <div class="field-row-three">
+            <label>
+              <span>Language</span>
+              <input name="language" value="{{ request_payload.language }}" />
+            </label>
+            <label>
+              <span>Caregiver role</span>
+              <select name="caregiver_role">
+                <option value="self" {% if request_payload.caregiver_role == "self" %}selected{% endif %}>Self</option>
+                <option value="parent" {% if request_payload.caregiver_role == "parent" %}selected{% endif %}>Parent</option>
+                <option value="adult-child" {% if request_payload.caregiver_role == "adult-child" %}selected{% endif %}>Adult child</option>
+                <option value="partner" {% if request_payload.caregiver_role == "partner" %}selected{% endif %}>Partner</option>
+                <option value="community-health-worker" {% if request_payload.caregiver_role == "community-health-worker" %}selected{% endif %}>Community health worker</option>
+                <option value="teacher" {% if request_payload.caregiver_role == "teacher" %}selected{% endif %}>Teacher</option>
+                <option value="other" {% if request_payload.caregiver_role == "other" %}selected{% endif %}>Other</option>
+              </select>
+            </label>
+            <label>
+              <span>Care scenario</span>
+              <select name="care_scenario">
+                <option value="general-family" {% if request_payload.care_scenario == "general-family" %}selected{% endif %}>General family</option>
+                <option value="maternal-postpartum" {% if request_payload.care_scenario == "maternal-postpartum" %}selected{% endif %}>Maternal or postpartum</option>
+                <option value="pediatric-fever" {% if request_payload.care_scenario == "pediatric-fever" %}selected{% endif %}>Child fever or dehydration</option>
+                <option value="climate-respiratory" {% if request_payload.care_scenario == "climate-respiratory" %}selected{% endif %}>Heat, smoke, or respiratory</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-row-three">
+            <label>
+              <span>Patient age band</span>
+              <select name="patient_age_band">
+                <option value="adult" {% if request_payload.patient_age_band == "adult" %}selected{% endif %}>Adult</option>
+                <option value="older-adult" {% if request_payload.patient_age_band == "older-adult" %}selected{% endif %}>Older adult</option>
+                <option value="infant" {% if request_payload.patient_age_band == "infant" %}selected{% endif %}>Infant</option>
+                <option value="child" {% if request_payload.patient_age_band == "child" %}selected{% endif %}>Child</option>
+                <option value="teen" {% if request_payload.patient_age_band == "teen" %}selected{% endif %}>Teen</option>
+              </select>
+            </label>
+            <label>
+              <span>Pregnancy or postpartum</span>
+              <select name="pregnancy_postpartum_status">
+                <option value="not-applicable" {% if request_payload.pregnancy_postpartum_status == "not-applicable" %}selected{% endif %}>Not applicable</option>
+                <option value="pregnant" {% if request_payload.pregnancy_postpartum_status == "pregnant" %}selected{% endif %}>Pregnant</option>
+                <option value="postpartum-6-weeks" {% if request_payload.pregnancy_postpartum_status == "postpartum-6-weeks" %}selected{% endif %}>Postpartum under 6 weeks</option>
+                <option value="postpartum-1-year" {% if request_payload.pregnancy_postpartum_status == "postpartum-1-year" %}selected{% endif %}>Postpartum under 1 year</option>
+              </select>
+            </label>
+            <label>
+              <span>ZIP code</span>
+              <input name="zip_code" value="{{ request_payload.zip_code }}" placeholder="Optional ZIP for local context" />
+            </label>
+          </div>
+
+          <div class="field-row-three">
+            <label>
+              <span>Transport access</span>
+              <select name="transport_access">
+                <option value="reliable" {% if request_payload.transport_access == "reliable" %}selected{% endif %}>Reliable</option>
+                <option value="limited" {% if request_payload.transport_access == "limited" %}selected{% endif %}>Limited</option>
+                <option value="none" {% if request_payload.transport_access == "none" %}selected{% endif %}>None</option>
+              </select>
+            </label>
+            <label>
+              <span>Connectivity</span>
+              <select name="connectivity">
+                <option value="stable" {% if request_payload.connectivity == "stable" %}selected{% endif %}>Stable</option>
+                <option value="spotty" {% if request_payload.connectivity == "spotty" %}selected{% endif %}>Spotty</option>
+                <option value="offline-first" {% if request_payload.connectivity == "offline-first" %}selected{% endif %}>Offline first</option>
+              </select>
+            </label>
+            <label>
+              <span>User profile</span>
+              <input
+                name="user_profile"
+                value="{{ request_payload.user_profile }}"
+                placeholder="10 days postpartum, asthma history, child age, etc."
+              />
+            </label>
+          </div>
+
+          <label>
+            <span>Location context</span>
+            <input
+              name="location_context"
+              value="{{ request_payload.location_context }}"
+              placeholder="Rural county, smoke exposure, no nearby ER, school nurse office, etc."
+            />
+          </label>
+          <button type="submit">Generate grounded guidance</button>
+        </form>
+
+        <section class="output-panel">
+          <h2>Assessment</h2>
+          {% if response_payload %}
+          <div class="assessment-header">
+            <div class="pill pill-{{ response_payload.urgency }}">{{ response_payload.urgency }}</div>
+            <div class="focus-chip">{{ response_payload.care_focus }}</div>
+          </div>
+          <p class="summary">{{ response_payload.summary }}</p>
+
+          <div class="narrative-grid">
+            <article class="result-card">
+              <h3>Why Now In America</h3>
+              <p>{{ response_payload.why_now_in_america }}</p>
+            </article>
+            <article class="result-card">
+              <h3>Why This Matters Long Term</h3>
+              <p>{{ response_payload.why_this_matters_long_term }}</p>
+            </article>
+          </div>
+
+          <div class="result-grid">
+            <article class="result-card">
+              <h3>Rationale</h3>
+              <ul>
+                {% for item in response_payload.rationale %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+            <article class="result-card">
+              <h3>Care Barriers</h3>
+              <ul>
+                {% for item in response_payload.care_barriers %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+          </div>
+
+          <article class="result-card">
+            <h3>Handoff Card</h3>
+            <div class="pill pill-{{ response_payload.handoff_card.risk_level }} handoff-risk">
+              {{ response_payload.handoff_card.risk_level }}
+            </div>
+            <p class="summary">{{ response_payload.handoff_card.headline }}</p>
+            <h4>Top Concerns</h4>
+            <ul>
+              {% for item in response_payload.handoff_card.top_concerns %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            <h4>Immediate Actions</h4>
+            <ul>
+              {% for item in response_payload.handoff_card.immediate_actions %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            <h4>Context For A Clinician Or Care Team</h4>
+            <ul>
+              {% for item in response_payload.handoff_card.handoff_context %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </article>
+
+          <div class="result-grid">
+            <article class="result-card">
+              <h3>Next Steps</h3>
+              <ul>
+                {% for item in response_payload.next_steps %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+            <article class="result-card">
+              <h3>Warning Signs</h3>
+              <ul>
+                {% for item in response_payload.warning_signs %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+            <article class="result-card">
+              <h3>Follow-up Questions</h3>
+              <ul>
+                {% for item in response_payload.follow_up_questions %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+          </div>
+
+          <article class="sources-card">
+            <h3>Grounded Sources</h3>
+            <ul>
+              {% for source in response_payload.grounded_sources %}
+              <li>
+                <strong>{{ source.title }}</strong>
+                <p>{{ source.summary }}</p>
+              </li>
+              {% endfor %}
+            </ul>
+          </article>
+
+          <p class="disclaimer">{{ response_payload.disclaimer }}</p>
+          {% else %}
+          <p class="placeholder">
+            Start with one concrete household scenario. This version is built to show maternal safety,
+            child fever and dehydration support, and heat or smoke resilience in a form a caregiver can
+            actually use before a clinic call or emergency handoff.
+          </p>
+          {% endif %}
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
